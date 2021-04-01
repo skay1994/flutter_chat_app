@@ -1,5 +1,7 @@
 library common;
 
+const API_URL = 'http://localhost:3000';
+
 class SocketEvent {
   final String name;
   final String room;
