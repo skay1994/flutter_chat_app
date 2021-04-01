@@ -8,11 +8,12 @@ class SocketEvent {
   final String text;
   final SocketType type;
 
-  SocketEvent(
-      {required this.name,
-      required this.room,
-      this.text = '',
-      required this.type});
+  SocketEvent({
+    required this.name,
+    required this.room,
+    this.text = '',
+    required this.type,
+  });
 
   Map toJson() {
     return {'name': name, 'room': room, 'text': text, 'type': type.toString()};
