@@ -2,15 +2,18 @@ import 'package:common/common.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('A group of tests', () {
-    Awesome awesome;
+  test('from json to json', () {
+    final json = {
+      'name': 'Maria',
+      'room': '',
+      'text': '',
+      'type': 'SocketType.enter_room',
+    };
 
-    setUp(() {
-      awesome = Awesome();
-    });
+    final event = SocketEvent.toJson(json);
 
-    test('First Test', () {
-      expect(awesome.isAwesome, isTrue);
-    });
+    expect(event.name, 'Maria');
+    expect(event.type, SocketType.enter_room);
+    expect(event.toJson(), json);
   });
 }
