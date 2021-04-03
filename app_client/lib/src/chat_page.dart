@@ -38,6 +38,7 @@ class _ChatPageState extends State<ChatPage> {
               RxBuilder(builder: (_) {
                 return Expanded(
                   child: ListView.builder(
+                    controller: controller.scrollController,
                     itemCount: controller.listEvents.length,
                     itemBuilder: (_, id) {
                       final event = controller.listEvents[id];
@@ -59,10 +60,18 @@ class _ChatPageState extends State<ChatPage> {
                 );
               }),
               TextField(
+                focusNode: controller.focusNode,
+                onSubmitted: (_) => controller.send(),
                 controller: controller.textController,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   hintText: 'Type your Text',
+                  suffixIcon: IconButton(
+                    icon: Icon(Icons.send),
+                    onPressed: () {
+                      controller.send();
+                    },
+                  ),
                 ),
               )
             ],
