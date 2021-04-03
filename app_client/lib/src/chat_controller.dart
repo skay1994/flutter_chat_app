@@ -9,6 +9,8 @@ class ChatController {
   final String room;
   final listEvents = RxList<SocketEvent>();
   final textController = TextEditingController();
+  final focusNode = FocusNode();
+  final scrollController = ScrollController();
 
   ChatController(this.name, this.room) {
     _init();
@@ -22,6 +24,7 @@ class ChatController {
     socket.on('message', (data) {
       final event = SocketEvent.toJson(data);
       listEvents.add(event);
+      scrollToBottom();
     });
   }
 
@@ -35,6 +38,15 @@ class ChatController {
     socket.emit('message', event.toJson());
     textController.clear();
     listEvents.add(event);
+    focusNode.requestFocus();
+  }
+
+  void scrollToBottom() {
+    scrollController.animateTo(
+      scrollController.position.maxScrollExtent,
+      duration: Duration(milliseconds: 500),
+      curve: Curves.fastOutSlowIn,
+    );
   }
 
   void dispose() {
